@@ -1,6 +1,8 @@
 import axios from "axios"; 
-import { HousesIndex } from "./HousesIndex"; 
 import { useState, useEffect} from "react"; 
+import { HousesIndex } from "./HousesIndex"; 
+import { HouseNew } from "./HouseNew"; 
+
 
 export function Content() {
   const [houses, setHouses] = useState([]); 
@@ -12,10 +14,19 @@ export function Content() {
     });
   };
 
+  const handleCreateHouse = (params, successCallback) => {
+    console.log("handleCreateHouse", params); 
+    axios.post("http://localhost:3000/houses.json", params).then ((response) => {
+      setHouses([...houses, response.data]); 
+      successCallback(); 
+    }); 
+  }
+
   useEffect(handleIndexHouses, []); 
 
   return (
     <div>
+      <HouseNew onCreateHouse={handleCreateHouse}/> 
      <HousesIndex houses={houses} /> 
     </div>
   )
