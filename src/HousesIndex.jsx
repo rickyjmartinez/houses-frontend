@@ -8,6 +8,7 @@ export function HousesIndex(props) {
         <p>Square feet: {house.square_ft}</p>
         <p>Bedrooms: {house.bedrooms}</p>
         <p>Bathrooms: {house.bathrooms}</p>
+        <a href={`/houses/${house.id}`}>Go to show page</a>
         </div>
       ))}
 

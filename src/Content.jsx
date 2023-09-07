@@ -1,7 +1,9 @@
 import axios from "axios"; 
 import { useState, useEffect} from "react"; 
+import { Routes, Route } from "react-router-dom"; 
 import { HousesIndex } from "./HousesIndex"; 
 import { HouseNew } from "./HouseNew"; 
+import { HouseShowPage } from "./HouseShowPage";
 
 
 export function Content() {
@@ -26,6 +28,9 @@ export function Content() {
 
   return (
     <div>
+      <Routes>
+        <Route path="/houses/:id" element={<HouseShowPage />} />
+      </Routes>
       <HouseNew onCreateHouse={handleCreateHouse}/> 
      <HousesIndex houses={houses} /> 
     </div>
