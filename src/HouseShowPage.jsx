@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; 
 
 
-export function HouseShowPage() {
+export function HouseShowPage(props) {
   const [house, setHouse] = useState({})
   const params = useParams();
 
@@ -23,7 +23,6 @@ export function HouseShowPage() {
         <p>Square feet: {house.square_ft}</p>
         <p>Bedrooms: {house.bedrooms}</p>
         <p>Bathrooms: {house.bathrooms}</p> 
-    
     </div>
   );
 }

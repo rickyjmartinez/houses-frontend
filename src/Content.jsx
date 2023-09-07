@@ -4,10 +4,14 @@ import { Routes, Route } from "react-router-dom";
 import { HousesIndex } from "./HousesIndex"; 
 import { HouseNew } from "./HouseNew"; 
 import { HouseShowPage } from "./HouseShowPage";
+import { Modal } from "./Modal";
+import { HouseShow } from "./HouseShow"; 
 
 
 export function Content() {
   const [houses, setHouses] = useState([]); 
+  const [isHouseShowVisible, setIsHouseShowVisible] = useState(false);
+  const [currentHouse, setCurrentHouse] = useState({});
 
   const handleIndexHouses = () => {
     axios.get("http://localhost:3000/houses.json").then ((response) => {
@@ -24,6 +28,16 @@ export function Content() {
     }); 
   }
 
+  const handleShowHouse = (house) => {
+    console.log("handleShowHouse", house); 
+    setIsHouseShowVisible(true); 
+    setCurrentHouse(house); 
+  ;}
+
+  const handleClose = () => {
+    setIsHouseShowVisible(false); 
+  }
+
   useEffect(handleIndexHouses, []); 
 
   return (
@@ -32,7 +46,10 @@ export function Content() {
         <Route path="/houses/:id" element={<HouseShowPage />} />
       </Routes>
       <HouseNew onCreateHouse={handleCreateHouse}/> 
-     <HousesIndex houses={houses} /> 
+     <HousesIndex houses={houses} onShowHouse={handleShowHouse} /> 
+     <Modal show={isHouseShowVisible} onClose={handleClose}>
+      <HouseShow house={currentHouse} />
+     </Modal>
     </div>
   )
 }
